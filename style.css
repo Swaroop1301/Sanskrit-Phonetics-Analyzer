@@ -605,6 +605,27 @@ body::before {
   border-top: 1px solid var(--border);
 }
 
+.credits {
+  margin-top: 14px;
+}
+
+.credits-title {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+
+.credits-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: .82rem;
+  color: var(--text);
+}
+
 /* ═══════════════════════════════════════════════════
    Responsive
    ═══════════════════════════════════════════════════ */

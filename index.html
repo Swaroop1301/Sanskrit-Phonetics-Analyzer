@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Analyze Sanskrit and Hindi phonetics — identify vowels (Swar), consonants (Vyanjan), and places of articulation (Uccharan Sthan) for every Devanagari character." />
+  <title>वर्ण विश्लेषक — Sanskrit Phonetics Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ─── Header ─── -->
+  <header id="app-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">ॐ</span>
+        <div>
+          <h1>वर्ण विश्लेषक</h1>
+          <p class="subtitle">Sanskrit &amp; Hindi Phonetics Analyzer</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-main">
+    <!-- ─── Input Section ─── -->
+    <section id="input-section" class="card">
+      <h2 class="section-title">
+        <span class="section-icon">✏️</span> Enter Text
+      </h2>
+      <div class="input-group">
+        <textarea
+          id="text-input"
+          placeholder="देवनागरी में टाइप करें — e.g. संस्कृतम्"
+          rows="3"
+          spellcheck="false"
+        ></textarea>
+        <div class="input-actions">
+          <button id="analyze-btn" class="btn btn-primary" type="button">
+            Analyze
+          </button>
+          <button id="mic-btn" class="btn btn-mic" type="button" title="Speech input">
+            <svg class="mic-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a4 4 0 0 0-4 4v7a4 4 0 0 0 8 0V5a4 4 0 0 0-4-4z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+            <span class="mic-label">Speak</span>
+          </button>
+          <button id="clear-btn" class="btn btn-ghost" type="button">Clear</button>
+        </div>
+        <p id="mic-status" class="mic-status" hidden></p>
+      </div>
+    </section>
+
+    <!-- ─── Results Section ─── -->
+    <section id="results-section" class="card" hidden>
+      <h2 class="section-title">
+        <span class="section-icon">📊</span> Analysis Results
+      </h2>
+
+      <!-- Summary badges -->
+      <div id="summary-bar" class="summary-bar"></div>
+
+      <!-- Character cards grid -->
+      <div id="results-grid" class="results-grid"></div>
+    </section>
+
+    <!-- ─── Sound Database Section ─── -->
+    <section id="database-section" class="card">
+      <h2 class="section-title">
+        <span class="section-icon">📚</span> Sound Database
+      </h2>
+      <p class="section-desc">Tap any group to explore its characters.</p>
+
+      <!-- Filter pills -->
+      <div id="db-filters" class="db-filters">
+        <button class="pill active" data-filter="all">All</button>
+        <button class="pill" data-filter="स्वर">स्वर (Vowels)</button>
+        <button class="pill" data-filter="व्यञ्जन">व्यञ्जन (Consonants)</button>
+        <button class="pill" data-filter="मात्रा">मात्रा (Matras)</button>
+      </div>
+
+      <div id="db-grid" class="db-grid"></div>
+    </section>
+
+    <!-- ─── Educational Section ─── -->
+    <section id="education-section" class="card">
+      <h2 class="section-title">
+        <span class="section-icon">🎓</span> Learn: Sanskrit Phonetics
+      </h2>
+
+      <div class="edu-grid">
+        <!-- Vowels -->
+        <article class="edu-card">
+          <div class="edu-header swar-accent">
+            <h3>स्वर — Vowels</h3>
+          </div>
+          <div class="edu-body">
+            <p>
+              Vowels (<strong>स्वर</strong>) are sounds produced without any obstruction to the airflow.
+              Sanskrit recognises <strong>13 pure vowels</strong> plus <strong>अं</strong> (Anusvāra) and <strong>अः</strong> (Visarga).
+            </p>
+            <ul>
+              <li><strong>हृस्व (Short):</strong> अ, इ, उ, ऋ, ऌ</li>
+              <li><strong>दीर्घ (Long):</strong> आ, ई, ऊ, ॠ, ॡ, ए, ऐ, ओ, औ</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Consonants -->
+        <article class="edu-card">
+          <div class="edu-header vyanjan-accent">
+            <h3>व्यञ्जन — Consonants</h3>
+          </div>
+          <div class="edu-body">
+            <p>
+              Consonants (<strong>व्यञ्जन</strong>) are produced by partially or fully blocking the airflow.
+              They are grouped into:
+            </p>
+            <ul>
+              <li><strong>स्पर्श (Stops):</strong> क–म (25 consonants, 5 vargas)</li>
+              <li><strong>अन्तस्थ (Semi-vowels):</strong> य, र, ल, व</li>
+              <li><strong>ऊष्म (Sibilants):</strong> श, ष, स, ह</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Places of Articulation -->
+        <article class="edu-card edu-wide">
+          <div class="edu-header place-accent">
+            <h3>उच्चारण स्थान — Places of Articulation</h3>
+          </div>
+          <div class="edu-body">
+            <p>Every Sanskrit sound is defined by <em>where</em> in the mouth it is produced:</p>
+            <div class="place-table-wrap">
+              <table class="place-table">
+                <thead>
+                  <tr>
+                    <th>Place</th>
+                    <th>Sanskrit</th>
+                    <th>English</th>
+                    <th>Examples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="place-tag kanth">कण्ठ</span></td>
+                    <td>कण्ठ्य</td>
+                    <td>Guttural (Throat)</td>
+                    <td>अ, आ, क-वर्ग, ह, विसर्ग</td>
+                  </tr>
+                  <tr>
+                    <td><span class="place-tag talu">तालु</span></td>
+                    <td>तालव्य</td>
+                    <td>Palatal (Hard palate)</td>
+                    <td>इ, ई, च-वर्ग, य, श</td>
+                  </tr>
+                  <tr>
+                    <td><span class="place-tag murdha">मूर्धा</span></td>
+                    <td>मूर्धन्य</td>
+                    <td>Retroflex (Roof of mouth)</td>
+                    <td>ऋ, ट-वर्ग, र, ष</td>
+                  </tr>
+                  <tr>
+                    <td><span class="place-tag dant">दन्त</span></td>
+                    <td>दन्त्य</td>
+                    <td>Dental (Teeth)</td>
+                    <td>ऌ, त-वर्ग, ल, स</td>
+                  </tr>
+                  <tr>
+                    <td><span class="place-tag oshth">ओष्ठ</span></td>
+                    <td>ओष्ठ्य</td>
+                    <td>Labial (Lips)</td>
+                    <td>उ, ऊ, प-वर्ग</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">Combined places like <strong>कण्ठतालु</strong> (ए, ऐ), <strong>कण्ठोष्ठ</strong> (ओ, औ), and <strong>दन्तोष्ठ</strong> (व) also exist.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer id="app-footer">
+    <p>वर्ण विश्लेषक · Sanskrit &amp; Hindi Phonetics Analyzer</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

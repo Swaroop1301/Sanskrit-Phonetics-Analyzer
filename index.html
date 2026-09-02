@@ -21,10 +21,49 @@
           <p class="subtitle">Sanskrit &amp; Hindi Phonetics Analyzer</p>
         </div>
       </div>
+      <!-- Mode Toggle -->
+      <div id="mode-toggle" class="mode-toggle">
+        <button class="mode-btn active" data-mode="phonetics">
+          <span class="mode-icon">🔤</span> Phonetics
+        </button>
+        <button class="mode-btn" data-mode="dictionary">
+          <span class="mode-icon">📖</span> Dictionary
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="app-main">
+    <!-- ─── Dictionary Section (hidden by default) ─── -->
+    <section id="dictionary-section" hidden>
+      <div class="card dict-card">
+        <h2 class="section-title dict-title">
+          <span class="section-icon">📖</span> शब्दकोश — Sanskrit Mini Dictionary
+        </h2>
+        <p class="section-desc">Tap any word to explore its grammar and phonetic frequency breakdown.</p>
+        <div class="dict-category-pills" id="dict-category-pills">
+          <button class="dict-pill active" data-cat="all">All</button>
+          <button class="dict-pill" data-cat="noun">नाम (Nouns)</button>
+          <button class="dict-pill" data-cat="verb">क्रिया (Verbs)</button>
+          <button class="dict-pill" data-cat="other">Other</button>
+        </div>
+        <div id="dict-word-grid" class="dict-word-grid"></div>
+      </div>
+      <div id="dict-detail" class="card dict-card dict-detail" hidden>
+        <button id="dict-close" class="dict-close" title="Close">&times;</button>
+        <div id="dict-detail-content"></div>
+        <!-- Frequency Analyzer -->
+        <div id="dict-freq" class="dict-freq-section" hidden>
+          <h3 class="dict-freq-title">
+            <span class="section-icon">📊</span> Phonetic Frequency Analysis
+          </h3>
+          <div id="dict-freq-summary" class="dict-freq-summary"></div>
+          <div id="dict-freq-bars" class="dict-freq-bars"></div>
+          <div id="dict-freq-place" class="dict-freq-place"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ─── Input Section ─── -->
     <section id="input-section" class="card">
       <h2 class="section-title">
